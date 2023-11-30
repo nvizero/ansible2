@@ -1,0 +1,29 @@
+- name: frontend - navigation
+  hosts: all
+  gather_facts: no
+  become: yes
+  vars:
+    container_count: 4
+    pm2_command: pm2 restart frontend
+    default_container_image: hyperf/hyperf:8.0-alpine-v3.12-swoole 
+    
+  
+  tasks:    
+    - name: update frontend develop
+      git:
+        repo: git@172.105.200.120:rn/navigation.git
+        dest: /var/www/frontend/navigation
+        update: yes
+        force: yes
+        version: develop  
+
+    - name: run yarn build 
+      args:
+        chdir: /var/www/frontend/navigation/naviStaNuxt
+      command: yarn build
+      become: yes
+  
+    - name: Restart pm2 frontend
+      command: pm2 restart 1
+      become: yes
+      

@@ -1,0 +1,16 @@
+- name: test - backend  
+  gather_facts: no
+  become: yes
+  vars:    
+    command1: ab -n 5000 -c 200 http://172.104.46.27:9570/
+    command2: /usr/bin/php /var/www/bin/hyperf.php migrate
+    command3: /usr/bin/php /var/www/bin/hyperf.php seed:run
+    command_start: /usr/bin/php /var/www/bin/hyperf.php start
+  
+  tasks:        
+    - name: execute ab test
+      command: "{{ command1 }}"
+
+    
+      
+      

@@ -1,0 +1,8 @@
+[all]
+139.59.232.231
+
+[dev]
+192.168.64.12
+
+[dev:vars]
+ansible_ssh_user=root

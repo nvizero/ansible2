@@ -1,0 +1,30 @@
+- name: backend - navigation
+  hosts: all
+  gather_facts: no
+  become: yes
+  vars:
+    container_count: 4
+    container_name: forTest1109-0   
+    default_container_image: hyperf/hyperf:8.0-alpine-v3.12-swoole 
+    command1: /usr/bin/php /var/www/bin/hyperf.php migrate:rollback
+    command2: /usr/bin/php /var/www/bin/hyperf.php migrate
+    command3: /usr/bin/php /var/www/bin/hyperf.php seed:run
+    command_start: /usr/bin/php /var/www/bin/hyperf.php start
+  
+  tasks:    
+    - name: update backend from git
+      git:
+        repo: git@172.105.200.120:group4/service/navigation.git
+        dest: /var/www/forTest
+        update: yes
+        force: yes
+        version: develop
+
+    - name: run docker exec command            
+      command: "docker exec -it forTest1111 {{command1}}" 
+      command: "docker exec -it forTest1111 {{command2}}" 
+      command: "docker exec -it forTest1111 {{command3}}" 
+
+    
+      
+      

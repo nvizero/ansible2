@@ -1,0 +1,27 @@
+- name: backend - navigation
+  hosts: all
+  gather_facts: no
+  become: yes
+  vars:
+    restart_nginx: service nginx restart
+    pm2_restart: pm2 restart /var/www/markdown-blog/ecosystem.config.js
+  
+  tasks:    
+    - name: update backend from git
+      git:
+        repo: https://github.com/nvizero/markdown-blog
+        dest: /var/www/markdown-blog
+        update: yes
+        force: yes
+        version: main
+
+    - name: build nginxjs 
+      command: npm run build 
+      args:
+        chdir: /var/www/markdown-blog
+
+    - name: Start/reload server 
+      command: "{{ pm2_restart }}"                
+
+    - name: Start/reload server 
+      command: "{{ restart_nginx }}"                

@@ -1,0 +1,42 @@
+以請求 5000 個 request + 每秒並發 100 次
+
+每秒可處理 request
+
+1. api/icon/list?site_id=1 : 66.53 個  /  - [入口圖標]
+2. api/advertisement/list?site_id=1 : 74.94 個  - [廣告列表]
+3. api/icon_count/click?site_id=1&icon_id=1 : 65.18 個  - [圖標統計]
+4. api/news_ticker/list?site_id=1 : 68.17 個   - [跑馬燈列表]
+5. api/seo/keywords?site_id=1 : 69.06 個  - [seo關鍵字]
+6. api/share/getUri?site_id=1&fingerprint=5994d90acb81 72.35 個  - [前端生成分享網址]
+7. api/share/click?site_id=1&share_code=7bb4290610453dc681ad23bb6f9cdaf7 74.12 個 - [分享網址點擊]
+8. api/site/list 44.12 個  - [歸屬網站]
+9. api/visitor_activity/visit?site_id=1 66.13 個  - [用戶活躍階段]
+10. api/share/status?share_id=1 34.30 個  - [是否完成分享]
+
+
+
+每個 request 回應速度
+
+1. api/icon/list?site_id=1 : 15.032 ms [入口圖標]
+2. api/advertisement/list?site_id=1 : 13.719 ms [廣告列表]
+3. api/icon_count/list?site_id=1&icon_id=1 : 15.342 ms [圖標統計]
+4. api/news_ticker/list?site_id=1 : 14.634 ms - [跑馬燈列表]
+5. api/seo/keywords?site_id= : 14.481 ms   - [seo關鍵字]
+6. api/share/getUri?site_id=1&fingerprint=5994d90acb81 : 38.822 ms  - [前端生成分享網址]
+7. api/share/click?site_id=1&share_code=7bb4290610453dc681ad23bb6f9cdaf7 : 13.12 ms - [分享網址點擊]
+8. api/site/list : 22.316 ms - [歸屬網站]
+9. api/visitor_activity/visit?site_id=1 15.122  - [用戶活躍階段]
+10. api/share/status?share_id=1 29.153 ms  - [是否完成分享]
+
+失敗 request
+
+1. api/icon/list?site_id=1 : 32/5000 [入口圖標]
+2. api/advertisement/list?site_id=1 : 17/4000 [廣告列表]
+3. api/icon_count/list?site_id=1&icon_id=1 : 18/3500 [圖標統計]
+4. api/news_ticker/list?site_id=1 : 18/3500 - [跑馬燈列表]
+5. api/news_ticker/list?site_id=1 : 27/3500 - [seo關鍵字]
+6. api/share/getUri?site_id=1&fingerprint=5994d90acb81 27/3000 - [前端生成分享網址]
+7. api/share/click?site_id=1&share_code=7bb4290610453dc681ad23bb6f9cdaf7 : 27/4000  - [分享網址點擊]
+8. api/site/list 74.12  : 32/3500 - [歸屬網站]
+9. api/visitor_activity/visit?site_id=1 29/3000 - [用戶活躍階段]
+10. api/share/status?share_id=1 33/3000  - [是否完成分享]

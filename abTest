@@ -1,0 +1,11 @@
+ab -n 50000 -c 200 http://172.104.46.27:9570/
+ab -n 50000 -c 200 http://172.104.46.27:9570/api/icon/list?site_id=1
+ab -n 50000 -c 200 http://172.104.46.27:9570/api/advertisement/list?site_id=1
+ab -n 50000 -c 200 http://172.104.46.27:9570/api/icon_count/list?site_id=1&icon_id=1
+ab -n 50000 -c 200 http://172.104.46.27:9570/api/icon_count/demo
+ab -n 50000 -c 200 http://172.104.46.27:9570/api/news_ticker/list?site_id=1
+ab -n 50000 -c 200 http://172.104.46.27:9570/api/seo/keywords?site_id=1
+ab -n 50000 -c 200 http://172.104.46.27:9570/api/share/getUri?site_id=1&fingerprint=5994d90acb81
+ab -n 50000 -c 200 http://172.104.46.27:9570/api/share/click?site_id=1&share_code=7bb4290610453dc681ad23bb6f9cdaf7
+ab -n 50000 -c 200 http://172.104.46.27:9570/api/site/list
+ab -n 50000 -c 200 http://172.104.46.27:9570/api/visitor_activity/visit?site_id=1

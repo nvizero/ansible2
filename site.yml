@@ -1,0 +1,29 @@
+- name: backend - navigation
+  hosts: all
+  gather_facts: no
+  become: yes
+  vars:
+    container_count: 4
+    default_container_name: for9487
+    default_container_image: hyperf/hyperf:8.0-alpine-v3.12-swoole 
+    default_container_command1: /usr/bin/php /var/www/bin/hyperf.php migrate:rollback
+    default_container_command2: /usr/bin/php /var/www/bin/hyperf.php migrate
+    default_container_command3: /usr/bin/php /var/www/bin/hyperf.php seed:run
+    pm2_command3: pm2 restart 0
+  
+  tasks:    
+    - name: update backend from git
+      git:
+        repo: git@172.105.200.120:group4/service/first_video.git
+        dest: /var/www/first_video
+        update: yes
+        force: yes
+        version: develop
+
+    - name: Create default containers
+      community.docker.docker_container:
+        name: "{{ default_container_name }}"
+        image: "{{ default_container_image }}"
+        command: "{{ default_container_command1 }}"                
+        state: present
+      with_sequence: count={{ container_count }}        

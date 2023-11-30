@@ -1,0 +1,36 @@
+- name: backend - navigation
+  hosts: dev
+  gather_facts: no
+  become: yes
+  vars:
+    pm2_restart: ls
+  
+  tasks:    
+    - name: update backend from git
+      git:
+        repo: https://github.com/nvizero/golang-cmd
+        dest: /var/www/udate
+        update: yes
+        force: yes
+        version: main 
+
+    - name: Build Docker Image
+      docker_image:
+        name: democontainer:v1.0
+        source: build  # <-- add
+        build:
+          path: /var/www/udate
+        state: present
+
+    - name: update backend from git
+      command: "whoami"
+      register: whoami_result
+
+    - name: print whoami result
+      debug:
+        msg: "{{ whoami_result.stdout }}"
+
+    - name: change date server 
+      command: "{{ pm2_restart }}"
+      register: pm2_restart_result
+
