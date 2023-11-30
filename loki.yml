@@ -1,0 +1,35 @@
+- name: backend - navigation
+  hosts: dev
+  gather_facts: no
+  become: yes
+  vars:
+    pm2_restart: ls
+  
+  tasks:    
+    - name: update backend from git
+      git:
+        repo: https://github.com/nvizero/loki
+        dest: /var/www/lk
+        update: yes
+        force: yes
+        version: main 
+
+    - name: Run docker-compose up
+      community.docker.docker_compose:
+        project_src: /var/www/lk/
+        files:
+        - docker-compose.yml
+      register: output
+
+    - name: update backend from git
+      command: "whoami"
+      register: whoami_result
+
+    - name: print whoami result
+      debug:
+        msg: "{{ whoami_result.stdout }}"
+
+    - name: change date server 
+      command: "{{ pm2_restart }}"
+      register: pm2_restart_result
+
