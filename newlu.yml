@@ -1,0 +1,24 @@
+- name: backend - navigation
+  hosts: node1
+  gather_facts: no
+  become: yes
+  vars:
+    pm2_restart: ls
+  
+  tasks:    
+    - name: update backend from git
+      git:
+        repo: https://github.com/nvizero/demo
+        dest: /var/www/newlu
+        update: yes
+        force: yes
+        version: newlu 
+
+    - name: Get pods in all namespaces
+      command: kubectl exec deployment.apps/laravel-deployment -n isb-ryan -- /bin/sh -c '/usr/bin/php /var/www/artisan migrate'
+      register: pods
+
+    - name: Print the output
+      debug:
+        var: pods.stdout_lines
+
